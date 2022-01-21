@@ -6,12 +6,13 @@ require('dotenv').config()
 
 let app = express();
 
+//print environment variable 
 console.log(process.env.VARIABLE_ONE)
 
-// let person = {
-//     'Name' : 'Bob',
-//     'Age' : 20
-// }
+ let person = {
+     'Name' : 'Bob',
+     'Age' : 20
+ }
 
 
 app.get('/person', (request, response)=>{
@@ -20,14 +21,21 @@ app.get('/person', (request, response)=>{
 
 app.listen(3000)
 
+app.use('/pics', express.static(__dirname + '/images'))
 
-
-app.get('/hello', (request, response)=> {
+//root Middleware: for any request, it  will log these details  and call next function 
+app.get('/hello', (request, response, next) =>{
+    console.log(request.method)
+    console.log(request.ip)
+    next()
+    // chained Middleware runs the second function
+}, (request, response)=> {
     response.sendFile(__dirname + '/index.html')
 })
 
+
 // when there is a request to /pics, it will replace that slash with the other path
-app.use('/pics', express.static(__dirname + '/images'))
+
 
 let message = {"message": 'Hello json'}
 
