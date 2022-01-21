@@ -1,6 +1,12 @@
 let express = require('express')
 
+const { request, response} = require('express')
+
+require('dotenv').config()
+
 let app = express();
+
+console.log(process.env.VARIABLE_ONE)
 
 // let person = {
 //     'Name' : 'Bob',
